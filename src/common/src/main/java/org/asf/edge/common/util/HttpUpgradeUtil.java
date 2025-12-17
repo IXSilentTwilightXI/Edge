@@ -55,6 +55,7 @@ public class HttpUpgradeUtil {
 			String value = requestHeaders.get(key);
 			conn.getOutputStream().write((key + ": " + value + "\r\n").getBytes("UTF-8"));
 		}
+		conn.getOutputStream().write(("Connection: Upgrade\r\n").getBytes("UTF-8"));
 		conn.getOutputStream().write(("Upgrade: " + upgradeProtocol + "\r\n").getBytes("UTF-8"));
 		conn.getOutputStream().write("\r\n".getBytes("UTF-8"));
 
