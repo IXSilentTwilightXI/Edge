@@ -1,6 +1,6 @@
-# DISCONTINUED
-Project Edge has been discontinued, this is due to internal management issues and issues within our Discord servers leading up to development trouble. Please visit our Discord server if you are a player and wish to remain able to play once our servers go, details can be found there.
+# Welcome to Project Edge
+The Project Edge Team and I hope you will enjoy playing School of Dragons once again! This emulator is NOT associated with DreamWorks or Jumpstart Games in any way. It is a non-profit fan-run project.
 
-We allow forking of the project and revival as long as credit is given where credit is due.
+Project Edge has been under new management since 05/02/2024. The previous team that created Edge transferred ownership of it over to me. My team and I have had no involvement in the creation of this emulator. Therefore, we are not responsible for any game bugs or issues you may encounter from using the emulator.
 
-Its been a great ride, but unfortunately, we have come to the end... - The Project Edge Team
+For help and support, join my Discord server at https://discord.gg/bckGbZZuzQ. - Tᴡɪʟɪɢʜᴛ - Head of Project Edge
