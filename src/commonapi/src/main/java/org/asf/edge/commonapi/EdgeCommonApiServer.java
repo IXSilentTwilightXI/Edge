@@ -7,8 +7,8 @@ import java.util.HashMap;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.asf.connective.ConnectiveHttpServer;
+import org.asf.connective.handlers.CaseInsensitiveHttpHandlerSet;
 import org.asf.connective.tasks.AsyncTaskManager;
-import org.asf.edge.commonapi.http.*;
 import org.asf.edge.commonapi.http.handlers.api.core.*;
 import org.asf.edge.commonapi.http.handlers.api.edgespecific.*;
 import org.asf.edge.commonapi.http.handlers.TestConnectionHandler;
@@ -170,8 +170,8 @@ public class EdgeCommonApiServer implements IBaseServer {
 
 		// Register content source
 		logger.debug("Adding case-insensitive content sources...");
-		server.setContentSource(new CaseInsensitiveContentSource());
-		internalServer.setContentSource(new CaseInsensitiveContentSource());
+		server.setHandlerSet(new CaseInsensitiveHttpHandlerSet());
+		internalServer.setHandlerSet(new CaseInsensitiveHttpHandlerSet());
 
 		// Call event
 		logger.debug("Dispatching event...");
@@ -179,30 +179,30 @@ public class EdgeCommonApiServer implements IBaseServer {
 
 		// Register handlers: api
 		logger.debug("Configuring api server request handlers...");
-		server.registerProcessor(new ChatWebServiceProcessor(this));
-		server.registerProcessor(new MessagingWebServiceProcessor(this));
-		server.registerProcessor(new MembershipWebServiceProcessor(this));
-		server.registerProcessor(new ConfigurationWebServiceProcessor(this));
-		server.registerProcessor(new AuthenticationWebServiceV1Processor(this));
-		server.registerProcessor(new AuthenticationWebServiceV3Processor(this));
-		server.registerProcessor(new AvatarWebServiceProcessor(this));
-		server.registerProcessor(new SubscriptionWebServiceProcessor(this));
-		server.registerProcessor(new RegistrationWebServiceV3Processor(this));
-		server.registerProcessor(new RegistrationWebServiceV4Processor(this));
-		server.registerProcessor(new ProfileWebServiceProcessor(this));
-		server.registerProcessor(new TestConnectionHandler());
+		server.registerHandler(new ChatWebServiceProcessor(this));
+		server.registerHandler(new MessagingWebServiceProcessor(this));
+		server.registerHandler(new MembershipWebServiceProcessor(this));
+		server.registerHandler(new ConfigurationWebServiceProcessor(this));
+		server.registerHandler(new AuthenticationWebServiceV1Processor(this));
+		server.registerHandler(new AuthenticationWebServiceV3Processor(this));
+		server.registerHandler(new AvatarWebServiceProcessor(this));
+		server.registerHandler(new SubscriptionWebServiceProcessor(this));
+		server.registerHandler(new RegistrationWebServiceV3Processor(this));
+		server.registerHandler(new RegistrationWebServiceV4Processor(this));
+		server.registerHandler(new ProfileWebServiceProcessor(this));
+		server.registerHandler(new TestConnectionHandler());
 
 		// Edge API
 		logger.debug("Configuring Edge API request handlers...");
-		server.registerProcessor(new EdgeAccountApiService(this));
-		server.registerProcessor(new EdgeSaveApiService(this));
-		server.registerProcessor(new EdgeTextFilterApiService(this));
+		server.registerHandler(new EdgeAccountApiService(this));
+		server.registerHandler(new EdgeSaveApiService(this));
+		server.registerHandler(new EdgeTextFilterApiService(this));
 
 		// Register handlers: internal
 		logger.debug("Configuring internal server request handlers...");
-		internalServer.registerProcessor(new AccountManagerAPI(this));
-		internalServer.registerProcessor(new CommonDataManagerAPI(this));
-		internalServer.registerProcessor(new MmoServerUplinkHandler(this));
+		internalServer.registerHandler(new AccountManagerAPI(this));
+		internalServer.registerHandler(new CommonDataManagerAPI(this));
+		internalServer.registerHandler(new MmoServerUplinkHandler(this));
 
 		// Bind command handler
 		logger.info("Binding command handler to GUI terminal...");

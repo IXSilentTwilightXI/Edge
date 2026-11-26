@@ -3,7 +3,7 @@ package org.asf.edge.commonapi.http.handlers.api.messaging;
 import java.io.IOException;
 
 import org.asf.connective.RemoteClient;
-import org.asf.connective.processors.HttpPushProcessor;
+import org.asf.connective.handlers.HttpPushHandler;
 import org.asf.edge.common.CommonUpdater;
 import org.asf.edge.common.SentinelUpdateManager;
 import org.asf.edge.common.entities.messages.WsMessage;
@@ -26,7 +26,7 @@ public class MessagingWebServiceProcessor extends EdgeWebService<EdgeCommonApiSe
 	}
 
 	@Override
-	public HttpPushProcessor createNewInstance() {
+	public HttpPushHandler createNewInstance() {
 		return new MessagingWebServiceProcessor(getServerInstance());
 	}
 

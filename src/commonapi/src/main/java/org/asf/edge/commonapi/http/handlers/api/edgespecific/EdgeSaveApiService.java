@@ -3,7 +3,7 @@ package org.asf.edge.commonapi.http.handlers.api.edgespecific;
 import java.io.IOException;
 import java.util.stream.Stream;
 
-import org.asf.connective.processors.HttpPushProcessor;
+import org.asf.connective.handlers.HttpPushHandler;
 import org.asf.edge.common.entities.achivements.EntityRankInfo;
 import org.asf.edge.common.events.accounts.saves.AccountSaveAuthenticatedEvent;
 import org.asf.edge.common.http.apihandlerutils.EdgeWebService;
@@ -40,7 +40,7 @@ public class EdgeSaveApiService extends EdgeWebService<EdgeCommonApiServer> {
 	}
 
 	@Override
-	public HttpPushProcessor createNewInstance() {
+	public HttpPushHandler createNewInstance() {
 		return new EdgeSaveApiService(getServerInstance());
 	}
 

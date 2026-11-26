@@ -424,7 +424,6 @@ public class IdentityUtils {
 	/**
 	 * Retrieves all identity definitions for a game (THIS PROCESS IS INTENSIVE)
 	 * 
-	 * @param game Game defnition
 	 * @return Array of IdentityDef instances
 	 */
 	public static IdentityDef[] getAll() {

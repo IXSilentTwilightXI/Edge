@@ -26,7 +26,7 @@ compileJava {
 }
 
 dependencies {
-	implementation project(":deps:connective-http")
+	implementation project(":connective-http")
 	implementation project(":src:modulemanager")
 	implementation project(":src:common")
 	implementation project(":src:gameplayapi")

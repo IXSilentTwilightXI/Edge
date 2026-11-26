@@ -17,7 +17,7 @@ import java.util.stream.Stream;
 
 import org.apache.logging.log4j.LogManager;
 import org.asf.connective.RemoteClient;
-import org.asf.connective.processors.HttpPushProcessor;
+import org.asf.connective.handlers.HttpPushHandler;
 import org.asf.connective.tasks.AsyncTaskManager;
 import org.asf.edge.common.entities.items.ItemCategoryInfo;
 import org.asf.edge.common.entities.items.ItemInfo;
@@ -56,7 +56,7 @@ public class ItemStoreWebServiceProcessor extends EdgeWebService<EdgeGameplayApi
 	}
 
 	@Override
-	public HttpPushProcessor createNewInstance() {
+	public HttpPushHandler createNewInstance() {
 		return new ItemStoreWebServiceProcessor(getServerInstance());
 	}
 

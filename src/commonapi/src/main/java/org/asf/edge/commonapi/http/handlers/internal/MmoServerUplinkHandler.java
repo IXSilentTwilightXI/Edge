@@ -4,14 +4,14 @@ import java.io.IOException;
 import java.util.UUID;
 
 import org.asf.connective.RemoteClient;
-import org.asf.connective.processors.HttpPushProcessor;
+import org.asf.connective.handlers.HttpPushHandler;
 import org.asf.connective.tasks.AsyncTaskManager;
 import org.asf.edge.common.io.DataReader;
 import org.asf.edge.common.util.SimpleBinaryMessageClient;
 import org.asf.edge.commonapi.EdgeCommonApiServer;
 import org.asf.edge.commonapi.util.MmoServerEntry;
 
-public class MmoServerUplinkHandler extends HttpPushProcessor {
+public class MmoServerUplinkHandler extends HttpPushHandler {
 
 	private EdgeCommonApiServer server;
 
@@ -20,12 +20,12 @@ public class MmoServerUplinkHandler extends HttpPushProcessor {
 	}
 
 	@Override
-	public HttpPushProcessor createNewInstance() {
+	public HttpPushHandler createNewInstance() {
 		return new MmoServerUplinkHandler(server);
 	}
 
 	@Override
-	public void process(String path, String method, RemoteClient hCl, String contentType) throws IOException {
+	public void handle(String path, String method, RemoteClient hCl, String contentType) throws IOException {
 		// Check headers
 		if (!getRequest().hasHeader("Upgrade")
 				|| !getRequest().getHeaderValue("Upgrade").equals("EDGEBINPROT/MMOUPLINK")) {

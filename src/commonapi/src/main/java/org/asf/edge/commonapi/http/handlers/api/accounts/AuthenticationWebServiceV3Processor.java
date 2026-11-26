@@ -6,7 +6,7 @@ import java.util.HashMap;
 import java.util.stream.Stream;
 
 import org.asf.connective.RemoteClient;
-import org.asf.connective.processors.HttpPushProcessor;
+import org.asf.connective.handlers.HttpPushHandler;
 import org.asf.edge.common.events.accounts.AccountAuthenticatedEvent;
 import org.asf.edge.common.http.apihandlerutils.EdgeWebService;
 import org.asf.edge.common.http.apihandlerutils.functions.LegacyFunction;
@@ -67,7 +67,7 @@ public class AuthenticationWebServiceV3Processor extends EdgeWebService<EdgeComm
 	}
 
 	@Override
-	public HttpPushProcessor createNewInstance() {
+	public HttpPushHandler createNewInstance() {
 		return new AuthenticationWebServiceV3Processor(getServerInstance());
 	}
 

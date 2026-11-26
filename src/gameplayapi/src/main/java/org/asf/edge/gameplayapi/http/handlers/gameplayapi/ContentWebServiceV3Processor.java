@@ -9,7 +9,7 @@ import java.util.TimeZone;
 import java.util.stream.Stream;
 
 import org.asf.connective.RemoteClient;
-import org.asf.connective.processors.HttpPushProcessor;
+import org.asf.connective.handlers.HttpPushHandler;
 import org.asf.edge.common.entities.achivements.EntityRankInfo;
 import org.asf.edge.common.entities.achivements.RankInfo;
 import org.asf.edge.common.entities.achivements.RankTypeID;
@@ -50,7 +50,7 @@ public class ContentWebServiceV3Processor extends EdgeWebService<EdgeGameplayApi
 	}
 
 	@Override
-	public HttpPushProcessor createNewInstance() {
+	public HttpPushHandler createNewInstance() {
 		return new ContentWebServiceV3Processor(getServerInstance());
 	}
 

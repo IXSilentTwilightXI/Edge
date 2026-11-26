@@ -5,7 +5,7 @@ import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.UUID;
 
-import org.asf.connective.processors.HttpPushProcessor;
+import org.asf.connective.handlers.HttpPushHandler;
 import org.asf.edge.common.http.apihandlerutils.EdgeWebService;
 import org.asf.edge.common.http.apihandlerutils.functions.*;
 import org.asf.edge.common.services.accounts.AccountDataContainer;
@@ -27,7 +27,7 @@ public class PhoenixTokensWebService extends EdgeWebService<EdgeGridApiServer> {
 	}
 
 	@Override
-	public HttpPushProcessor createNewInstance() {
+	public HttpPushHandler createNewInstance() {
 		return new PhoenixTokensWebService(getServerInstance());
 	}
 

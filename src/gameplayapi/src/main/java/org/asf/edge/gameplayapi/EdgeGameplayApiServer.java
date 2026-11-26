@@ -6,8 +6,8 @@ import java.util.HashMap;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.asf.connective.ConnectiveHttpServer;
+import org.asf.connective.handlers.CaseInsensitiveHttpHandlerSet;
 import org.asf.connective.tasks.AsyncTaskManager;
-import org.asf.edge.gameplayapi.http.*;
 import org.asf.edge.gameplayapi.http.handlers.gameplayapi.*;
 import org.asf.edge.gameplayapi.http.handlers.itemstore.*;
 import org.asf.edge.gameplayapi.services.quests.QuestManager;
@@ -149,7 +149,7 @@ public class EdgeGameplayApiServer implements IBaseServer {
 
 		// Register content source
 		logger.debug("Adding case-insensitive content source...");
-		server.setContentSource(new CaseInsensitiveContentSource());
+		server.setHandlerSet(new CaseInsensitiveHttpHandlerSet());
 
 		// Call event
 		logger.debug("Dispatching event...");
@@ -157,22 +157,22 @@ public class EdgeGameplayApiServer implements IBaseServer {
 
 		// Register handlers
 		logger.debug("Configuring server request handlers...");
-		server.registerProcessor(new ContentWebServiceV1Processor(this));
-		server.registerProcessor(new ContentWebServiceV2Processor(this));
-		server.registerProcessor(new ContentWebServiceV3Processor(this));
-		server.registerProcessor(new ContentWebServiceV4Processor(this));
-		server.registerProcessor(new RatingWebServiceV1Processor(this));
-		server.registerProcessor(new RatingWebServiceV2Processor(this));
-		server.registerProcessor(new ChallengeWebServiceProcessor(this));
-		server.registerProcessor(new InviteFriendWebServiceProcessor(this));
-		server.registerProcessor(new MobileStoreWebServiceProcessor(this));
-		server.registerProcessor(new PaymentWebServiceV1Processor(this));
-		server.registerProcessor(new PaymentWebServiceV2Processor(this));
-		server.registerProcessor(new ScoreWebServiceProcessor(this));
-		server.registerProcessor(new ItemStoreWebServiceProcessor(this));
-		server.registerProcessor(new MissionWebServiceProcessor(this));
-		server.registerProcessor(new AchievementWebServiceV1Processor(this));
-		server.registerProcessor(new AchievementWebServiceV2Processor(this));
+		server.registerHandler(new ContentWebServiceV1Processor(this));
+		server.registerHandler(new ContentWebServiceV2Processor(this));
+		server.registerHandler(new ContentWebServiceV3Processor(this));
+		server.registerHandler(new ContentWebServiceV4Processor(this));
+		server.registerHandler(new RatingWebServiceV1Processor(this));
+		server.registerHandler(new RatingWebServiceV2Processor(this));
+		server.registerHandler(new ChallengeWebServiceProcessor(this));
+		server.registerHandler(new InviteFriendWebServiceProcessor(this));
+		server.registerHandler(new MobileStoreWebServiceProcessor(this));
+		server.registerHandler(new PaymentWebServiceV1Processor(this));
+		server.registerHandler(new PaymentWebServiceV2Processor(this));
+		server.registerHandler(new ScoreWebServiceProcessor(this));
+		server.registerHandler(new ItemStoreWebServiceProcessor(this));
+		server.registerHandler(new MissionWebServiceProcessor(this));
+		server.registerHandler(new AchievementWebServiceV1Processor(this));
+		server.registerHandler(new AchievementWebServiceV2Processor(this));
 
 		// Edge API
 		logger.debug("Configuring Edge API request handlers...");

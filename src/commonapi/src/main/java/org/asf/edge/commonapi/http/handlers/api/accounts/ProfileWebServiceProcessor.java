@@ -9,7 +9,7 @@ import java.util.TimeZone;
 import java.util.stream.Stream;
 
 import org.asf.connective.RemoteClient;
-import org.asf.connective.processors.HttpPushProcessor;
+import org.asf.connective.handlers.HttpPushHandler;
 import org.asf.edge.common.entities.achivements.EntityRankInfo;
 import org.asf.edge.common.entities.achivements.RankMultiplierInfo;
 import org.asf.edge.common.http.apihandlerutils.EdgeWebService;
@@ -49,7 +49,7 @@ public class ProfileWebServiceProcessor extends EdgeWebService<EdgeCommonApiServ
 	}
 
 	@Override
-	public HttpPushProcessor createNewInstance() {
+	public HttpPushHandler createNewInstance() {
 		return new ProfileWebServiceProcessor(getServerInstance());
 	}
 

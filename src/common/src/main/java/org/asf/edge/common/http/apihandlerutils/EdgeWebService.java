@@ -16,7 +16,7 @@ import java.util.Map;
 
 import org.apache.logging.log4j.Logger;
 import org.asf.connective.RemoteClient;
-import org.asf.connective.processors.HttpPushProcessor;
+import org.asf.connective.handlers.HttpPushHandler;
 import org.asf.edge.common.IBaseServer;
 import org.asf.edge.common.entities.items.PlayerInventory;
 import org.asf.edge.common.experiments.ExperimentManager;
@@ -62,7 +62,7 @@ import com.fasterxml.jackson.dataformat.xml.ser.ToXmlGenerator;
  * 
  */
 @SuppressWarnings("deprecation")
-public abstract class EdgeWebService<T extends IBaseServer> extends HttpPushProcessor {
+public abstract class EdgeWebService<T extends IBaseServer> extends HttpPushHandler {
 	private static XmlMapper mapper = new XmlMapper();
 	static {
 		mapper.configure(ToXmlGenerator.Feature.WRITE_XML_DECLARATION, true);
@@ -202,7 +202,7 @@ public abstract class EdgeWebService<T extends IBaseServer> extends HttpPushProc
 	}
 
 	@Override
-	public void process(String path, String method, RemoteClient client, String contentType) throws IOException {
+	public void handle(String path, String method, RemoteClient client, String contentType) throws IOException {
 		// Compute subpath
 		path = sanitizePath(path.substring(this.path().length()));
 		if (path.startsWith("/"))
@@ -654,7 +654,7 @@ public abstract class EdgeWebService<T extends IBaseServer> extends HttpPushProc
 		return utils;
 	}
 
-	protected class ServiceRequestInfo {
+	public class ServiceRequestInfo {
 		public String apiKey;
 		public String apiSecret;
 		public byte[] desKey;
