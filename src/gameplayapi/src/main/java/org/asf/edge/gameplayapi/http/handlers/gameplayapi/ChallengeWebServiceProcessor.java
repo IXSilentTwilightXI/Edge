@@ -3,7 +3,7 @@ package org.asf.edge.gameplayapi.http.handlers.gameplayapi;
 import java.io.IOException;
 
 import org.asf.connective.RemoteClient;
-import org.asf.connective.processors.HttpPushProcessor;
+import org.asf.connective.handlers.HttpPushHandler;
 import org.asf.edge.common.http.apihandlerutils.EdgeWebService;
 import org.asf.edge.gameplayapi.EdgeGameplayApiServer;
 
@@ -14,7 +14,7 @@ public class ChallengeWebServiceProcessor extends EdgeWebService<EdgeGameplayApi
 	}
 
 	@Override
-	public HttpPushProcessor createNewInstance() {
+	public HttpPushHandler createNewInstance() {
 		return new ChallengeWebServiceProcessor(getServerInstance());
 	}
 

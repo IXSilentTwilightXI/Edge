@@ -7,7 +7,7 @@ import java.nio.ByteBuffer;
 import java.util.UUID;
 import java.util.stream.Stream;
 
-import org.asf.connective.processors.HttpPushProcessor;
+import org.asf.connective.handlers.HttpPushHandler;
 import org.asf.connective.tasks.AsyncTaskManager;
 import org.asf.edge.common.entities.achivements.EntityRankInfo;
 import org.asf.edge.common.events.accounts.AccountAuthenticatedEvent;
@@ -47,7 +47,7 @@ public class EdgeAccountApiService extends EdgeWebService<EdgeCommonApiServer> {
 	}
 
 	@Override
-	public HttpPushProcessor createNewInstance() {
+	public HttpPushHandler createNewInstance() {
 		return new EdgeAccountApiService(getServerInstance());
 	}
 

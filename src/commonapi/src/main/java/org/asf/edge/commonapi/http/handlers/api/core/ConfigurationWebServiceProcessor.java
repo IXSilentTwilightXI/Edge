@@ -7,8 +7,8 @@ import java.net.SocketAddress;
 import java.util.ArrayList;
 
 import org.asf.connective.RemoteClient;
+import org.asf.connective.handlers.HttpPushHandler;
 import org.asf.connective.impl.http_1_1.RemoteClientHttp_1_1;
-import org.asf.connective.processors.HttpPushProcessor;
 import org.asf.edge.common.http.apihandlerutils.EdgeWebService;
 import org.asf.edge.common.http.apihandlerutils.functions.LegacyFunction;
 import org.asf.edge.common.http.apihandlerutils.functions.LegacyFunctionInfo;
@@ -24,7 +24,7 @@ public class ConfigurationWebServiceProcessor extends EdgeWebService<EdgeCommonA
 	}
 
 	@Override
-	public HttpPushProcessor createNewInstance() {
+	public HttpPushHandler createNewInstance() {
 		return new ConfigurationWebServiceProcessor(getServerInstance());
 	}
 

@@ -16,7 +16,7 @@ import java.util.stream.Stream;
 
 import org.asf.connective.RemoteClient;
 import org.asf.connective.TlsSecuredHttpServer;
-import org.asf.connective.processors.HttpPushProcessor;
+import org.asf.connective.handlers.HttpPushHandler;
 import org.asf.edge.common.entities.coordinates.Vector3D;
 import org.asf.edge.common.entities.items.ItemInfo;
 import org.asf.edge.common.entities.items.PlayerInventory;
@@ -119,7 +119,7 @@ public class ContentWebServiceV1Processor extends EdgeWebService<EdgeGameplayApi
 	}
 
 	@Override
-	public HttpPushProcessor createNewInstance() {
+	public HttpPushHandler createNewInstance() {
 		return new ContentWebServiceV1Processor(getServerInstance());
 	}
 

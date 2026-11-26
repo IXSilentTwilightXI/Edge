@@ -3,7 +3,7 @@ package org.asf.edge.commonapi.http.handlers.api.accounts;
 import java.io.IOException;
 
 import org.asf.connective.RemoteClient;
-import org.asf.connective.processors.HttpPushProcessor;
+import org.asf.connective.handlers.HttpPushHandler;
 import org.asf.edge.common.http.apihandlerutils.EdgeWebService;
 import org.asf.edge.commonapi.EdgeCommonApiServer;
 
@@ -14,7 +14,7 @@ public class SubscriptionWebServiceProcessor extends EdgeWebService<EdgeCommonAp
 	}
 
 	@Override
-	public HttpPushProcessor createNewInstance() {
+	public HttpPushHandler createNewInstance() {
 		return new SubscriptionWebServiceProcessor(getServerInstance());
 	}
 

@@ -118,15 +118,15 @@ public class EdgeGridApiServer implements IBaseServer {
 
 		// Register handlers
 		logger.debug("Configuring server request handlers...");
-		server.registerProcessor(new PhoenixAuthWebService(this));
-		server.registerProcessor(new PhoenixServersWebService(this));
-		server.registerProcessor(new PhoenixTokensWebService(this));
-		server.registerProcessor(new PhoenixIdentityWebService(this));
-		server.registerProcessor(new GridAccountManagerWebService(this));
-		server.registerProcessor(new GridUtilityWebService(this));
-		server.registerProcessor(new GridGameWebService(this));
-		server.registerProcessor(new GridGameWebService(this));
-		server.registerProcessor(new GridGameplayWebService(this));
+		server.registerHandler(new PhoenixAuthWebService(this));
+		server.registerHandler(new PhoenixServersWebService(this));
+		server.registerHandler(new PhoenixTokensWebService(this));
+		server.registerHandler(new PhoenixIdentityWebService(this));
+		server.registerHandler(new GridAccountManagerWebService(this));
+		server.registerHandler(new GridUtilityWebService(this));
+		server.registerHandler(new GridGameWebService(this));
+		server.registerHandler(new GridGameWebService(this));
+		server.registerHandler(new GridGameplayWebService(this));
 		// TODO
 
 		// Bind command handler

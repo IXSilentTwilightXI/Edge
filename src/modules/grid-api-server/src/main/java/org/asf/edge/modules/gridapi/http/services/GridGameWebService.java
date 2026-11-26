@@ -2,7 +2,8 @@ package org.asf.edge.modules.gridapi.http.services;
 
 import java.io.IOException;
 import java.util.UUID;
-import org.asf.connective.processors.HttpPushProcessor;
+
+import org.asf.connective.handlers.HttpPushHandler;
 import org.asf.edge.common.http.apihandlerutils.EdgeWebService;
 import org.asf.edge.common.http.apihandlerutils.functions.Function;
 import org.asf.edge.common.http.apihandlerutils.functions.FunctionInfo;
@@ -20,7 +21,7 @@ public class GridGameWebService extends EdgeWebService<EdgeGridApiServer> {
 	}
 
 	@Override
-	public HttpPushProcessor createNewInstance() {
+	public HttpPushHandler createNewInstance() {
 		return new GridGameWebService(getServerInstance());
 	}
 

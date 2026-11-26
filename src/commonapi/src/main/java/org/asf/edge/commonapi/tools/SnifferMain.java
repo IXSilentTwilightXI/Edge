@@ -31,7 +31,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.asf.connective.ConnectiveHttpServer;
 import org.asf.connective.RemoteClient;
-import org.asf.connective.processors.HttpPushProcessor;
+import org.asf.connective.handlers.HttpPushHandler;
 import org.asf.connective.tasks.AsyncTaskManager;
 import org.asf.edge.common.EdgeServerEnvironment;
 import org.asf.edge.common.util.TripleDesUtil;
@@ -428,12 +428,12 @@ public class SnifferMain {
 		new BinaryProxy().start(localPort, host, port);
 	}
 
-	private static class ProxyProcessor extends HttpPushProcessor {
+	private static class ProxyProcessor extends HttpPushHandler {
 
 		private static XmlMapper mapper = new XmlMapper();
 
 		@Override
-		public HttpPushProcessor createNewInstance() {
+		public HttpPushHandler createNewInstance() {
 			return new ProxyProcessor();
 		}
 
@@ -463,7 +463,7 @@ public class SnifferMain {
 		}
 
 		@Override
-		public void process(String path, String method, RemoteClient client, String contentType) throws IOException {
+		public void handle(String path, String method, RemoteClient client, String contentType) throws IOException {
 			// Parse path
 			if (path.startsWith("/"))
 				path = path.substring(1);
@@ -657,7 +657,7 @@ public class SnifferMain {
 
 	}
 
-	private static class ManifestRequestProcessor extends HttpPushProcessor {
+	private static class ManifestRequestProcessor extends HttpPushHandler {
 		private String path;
 
 		public ManifestRequestProcessor(String path) {
@@ -665,12 +665,12 @@ public class SnifferMain {
 		}
 
 		@Override
-		public void process(String path, String method, RemoteClient client, String contentType) throws IOException {
+		public void handle(String path, String method, RemoteClient client, String contentType) throws IOException {
 			setResponseContent("text/xml", encryptedManifest);
 		}
 
 		@Override
-		public HttpPushProcessor createNewInstance() {
+		public HttpPushHandler createNewInstance() {
 			return new ManifestRequestProcessor(path);
 		}
 
@@ -796,9 +796,9 @@ public class SnifferMain {
 		log.info("Setting up http server...");
 		ConnectiveHttpServer srv = ConnectiveHttpServer.create("HTTP/1.1",
 				Map.of("address", config.get("host").getAsString(), "port", config.get("port").getAsString()));
-		srv.registerProcessor(new ManifestRequestProcessor("/DWADragonsUnity/" + config.get("platform").getAsString()
+		srv.registerHandler(new ManifestRequestProcessor("/DWADragonsUnity/" + config.get("platform").getAsString()
 				+ "/" + config.get("version").getAsString() + "/DWADragonsMain.xml"));
-		srv.registerProcessor(new ProxyProcessor());
+		srv.registerHandler(new ProxyProcessor());
 
 		// Start
 		log.info("Starting sniffer server on " + config.get("host").getAsString() + ":"

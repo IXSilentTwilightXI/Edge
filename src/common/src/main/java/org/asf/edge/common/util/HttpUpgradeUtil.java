@@ -6,10 +6,13 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.Socket;
 import java.net.URL;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
 import javax.net.ssl.SSLSocketFactory;
+
+import org.asf.connective.io.PrependedBufferStream;
 
 public class HttpUpgradeUtil {
 
@@ -36,6 +39,7 @@ public class HttpUpgradeUtil {
 					"Unsupported protocol for protocol Upgrade to binary communication: " + u.getProtocol());
 		Socket conn = (u.getProtocol().equals("http") ? new Socket(u.getHost(), u.getPort())
 				: SSLSocketFactory.getDefault().createSocket(u.getHost(), u.getPort()));
+		PrependedBufferStream st = new PrependedBufferStream(conn.getInputStream());
 
 		// Set content-length header if needed
 		if (body != null && length != -1) {
@@ -74,14 +78,14 @@ public class HttpUpgradeUtil {
 		}
 
 		// Check response
-		String line = readStreamLine(conn.getInputStream());
+		String line = readStreamLine(st);
 		String statusLine = line;
 		if (!line.startsWith("HTTP/1.1 ")) {
 			conn.close();
 			throw new IOException("Server returned invalid protocol");
 		}
 		while (true) {
-			line = readStreamLine(conn.getInputStream());
+			line = readStreamLine(st);
 			if (line.equals(""))
 				break;
 			String key = line.substring(0, line.indexOf(": "));
@@ -91,7 +95,7 @@ public class HttpUpgradeUtil {
 
 		// Transfer output body to memory
 		ByteArrayOutputStream buffer = new ByteArrayOutputStream();
-		transferRequestBody(responseHeadersOutput, conn.getInputStream(), buffer);
+		transferRequestBody(responseHeadersOutput, st, buffer);
 
 		// Verify response
 		int status = Integer.parseInt(statusLine.split(" ")[1]);
@@ -120,16 +124,65 @@ public class HttpUpgradeUtil {
 		return conn;
 	}
 
-	private static String readStreamLine(InputStream strm) throws IOException {
-		String buffer = "";
-		while (true) {
-			char ch = (char) strm.read();
-			if (ch == (char) -1)
-				return null;
-			if (ch == '\n') {
-				return buffer;
-			} else if (ch != '\r') {
-				buffer += ch;
+	private static String readStreamLine(PrependedBufferStream strm) throws IOException {
+		// Read a number of bytes
+		byte[] content = new byte[20480];
+		int read = strm.read(content, 0, content.length);
+		if (read <= -1) {
+			// Failed
+			return null;
+		} else {
+			// Trim array
+			content = Arrays.copyOfRange(content, 0, read);
+
+			// Find newline
+			String newData = new String(content, "UTF-8");
+			if (newData.contains("\n")) {
+				// Found newline
+				String line = newData.substring(0, newData.indexOf("\n"));
+				int offset = line.length() + 1;
+				int returnLength = content.length - offset;
+				if (returnLength > 0) {
+					// Return
+					strm.returnToBuffer(Arrays.copyOfRange(content, offset, content.length));
+				}
+				return line.replace("\r", "");
+			} else {
+				// Read more
+				while (true) {
+					byte[] addition = new byte[20480];
+					read = strm.read(addition, 0, addition.length);
+					if (read <= -1) {
+						// Failed
+						strm.returnToBuffer(content);
+						return null;
+					}
+
+					// Trim
+					addition = Arrays.copyOfRange(addition, 0, read);
+
+					// Append
+					byte[] newContent = new byte[content.length + addition.length];
+					for (int i = 0; i < content.length; i++)
+						newContent[i] = content[i];
+					for (int i = content.length; i < newContent.length; i++)
+						newContent[i] = addition[i - content.length];
+					content = newContent;
+
+					// Find newline
+					newData = new String(content, "UTF-8");
+					if (newData.contains("\n")) {
+						// Found newline
+						String line = newData.substring(0, newData.indexOf("\n"));
+						int offset = line.length() + 1;
+						int returnLength = content.length - offset;
+						if (returnLength > 0) {
+							// Return
+							strm.returnToBuffer(Arrays.copyOfRange(content, offset, content.length));
+						}
+						return line.replace("\r", "");
+					}
+				}
 			}
 		}
 	}

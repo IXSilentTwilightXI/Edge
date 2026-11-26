@@ -19,16 +19,16 @@ import javax.activation.MimetypesFileTypeMap;
 
 import org.apache.logging.log4j.LogManager;
 import org.asf.connective.RemoteClient;
+import org.asf.connective.handlers.HttpPushHandler;
 import org.asf.connective.objects.HttpRequest;
 import org.asf.connective.objects.HttpResponse;
-import org.asf.connective.processors.HttpPushProcessor;
 import org.asf.edge.common.CommonIndexPage;
 import org.asf.edge.common.util.TripleDesUtil;
 import org.asf.edge.contentserver.EdgeContentServer;
 
 import com.google.gson.JsonObject;
 
-public class ContentServerRequestHandler extends HttpPushProcessor {
+public class ContentServerRequestHandler extends HttpPushHandler {
 
 	private String path;
 	private File sourceDir;
@@ -67,7 +67,7 @@ public class ContentServerRequestHandler extends HttpPushProcessor {
 	}
 
 	@Override
-	public HttpPushProcessor createNewInstance() {
+	public HttpPushHandler createNewInstance() {
 		return new ContentServerRequestHandler(sourceDir, path, preProcessors, server);
 	}
 
@@ -87,7 +87,7 @@ public class ContentServerRequestHandler extends HttpPushProcessor {
 	}
 
 	@Override
-	public void process(String path, String method, RemoteClient client, String contentType) throws IOException {
+	public void handle(String path, String method, RemoteClient client, String contentType) throws IOException {
 		// Compute subpath
 		path = sanitizePath(path.substring(this.path.length()));
 

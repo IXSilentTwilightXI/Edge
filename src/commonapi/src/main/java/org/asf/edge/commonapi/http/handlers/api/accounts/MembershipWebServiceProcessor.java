@@ -4,7 +4,7 @@ import java.io.IOException;
 import java.util.stream.Stream;
 
 import org.asf.connective.RemoteClient;
-import org.asf.connective.processors.HttpPushProcessor;
+import org.asf.connective.handlers.HttpPushHandler;
 import org.asf.edge.common.http.apihandlerutils.EdgeWebService;
 import org.asf.edge.common.http.apihandlerutils.functions.LegacyFunction;
 import org.asf.edge.common.http.apihandlerutils.functions.LegacyFunctionInfo;
@@ -25,7 +25,7 @@ public class MembershipWebServiceProcessor extends EdgeWebService<EdgeCommonApiS
 	}
 
 	@Override
-	public HttpPushProcessor createNewInstance() {
+	public HttpPushHandler createNewInstance() {
 		return new MembershipWebServiceProcessor(getServerInstance());
 	}
 

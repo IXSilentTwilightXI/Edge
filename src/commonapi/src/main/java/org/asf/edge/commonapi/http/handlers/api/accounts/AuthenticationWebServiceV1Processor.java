@@ -6,7 +6,7 @@ import java.util.Date;
 import java.util.TimeZone;
 
 import org.asf.connective.RemoteClient;
-import org.asf.connective.processors.HttpPushProcessor;
+import org.asf.connective.handlers.HttpPushHandler;
 import org.asf.edge.common.events.accounts.saves.AccountSaveAuthenticatedEvent;
 import org.asf.edge.common.http.apihandlerutils.EdgeWebService;
 import org.asf.edge.common.http.apihandlerutils.functions.*;
@@ -29,7 +29,7 @@ public class AuthenticationWebServiceV1Processor extends EdgeWebService<EdgeComm
 	}
 
 	@Override
-	public HttpPushProcessor createNewInstance() {
+	public HttpPushHandler createNewInstance() {
 		return new AuthenticationWebServiceV1Processor(getServerInstance());
 	}
 

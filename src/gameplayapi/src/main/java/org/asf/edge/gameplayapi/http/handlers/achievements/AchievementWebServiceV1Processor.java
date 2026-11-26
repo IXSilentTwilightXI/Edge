@@ -8,7 +8,7 @@ import java.util.TimeZone;
 import java.util.stream.IntStream;
 import java.util.Date;
 
-import org.asf.connective.processors.HttpPushProcessor;
+import org.asf.connective.handlers.HttpPushHandler;
 import org.asf.edge.common.entities.achivements.EntityRankInfo;
 import org.asf.edge.common.entities.achivements.RankInfo;
 import org.asf.edge.common.entities.achivements.RankMultiplierInfo;
@@ -49,7 +49,7 @@ public class AchievementWebServiceV1Processor extends EdgeWebService<EdgeGamepla
 	}
 
 	@Override
-	public HttpPushProcessor createNewInstance() {
+	public HttpPushHandler createNewInstance() {
 		return new AchievementWebServiceV1Processor(getServerInstance());
 	}
 

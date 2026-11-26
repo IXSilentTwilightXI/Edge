@@ -3,7 +3,7 @@ package org.asf.edge.modules.gridapi.http.services.phoenix;
 import java.io.IOException;
 import java.security.NoSuchAlgorithmException;
 
-import org.asf.connective.processors.HttpPushProcessor;
+import org.asf.connective.handlers.HttpPushHandler;
 import org.asf.edge.common.events.accounts.AccountAuthenticatedEvent;
 import org.asf.edge.common.http.apihandlerutils.EdgeWebService;
 import org.asf.edge.common.http.apihandlerutils.functions.Function;
@@ -34,7 +34,7 @@ public class PhoenixAuthWebService extends EdgeWebService<EdgeGridApiServer> {
 	}
 
 	@Override
-	public HttpPushProcessor createNewInstance() {
+	public HttpPushHandler createNewInstance() {
 		return new PhoenixAuthWebService(getServerInstance());
 	}
 

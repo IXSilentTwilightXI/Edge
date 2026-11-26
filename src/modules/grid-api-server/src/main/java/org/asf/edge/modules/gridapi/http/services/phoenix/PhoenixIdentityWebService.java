@@ -3,7 +3,7 @@ package org.asf.edge.modules.gridapi.http.services.phoenix;
 import java.security.NoSuchAlgorithmException;
 import java.util.HashMap;
 
-import org.asf.connective.processors.HttpPushProcessor;
+import org.asf.connective.handlers.HttpPushHandler;
 import org.asf.edge.common.http.apihandlerutils.EdgeWebService;
 import org.asf.edge.common.http.apihandlerutils.functions.*;
 import org.asf.edge.modules.gridapi.EdgeGridApiServer;
@@ -23,7 +23,7 @@ public class PhoenixIdentityWebService extends EdgeWebService<EdgeGridApiServer>
 	}
 
 	@Override
-	public HttpPushProcessor createNewInstance() {
+	public HttpPushHandler createNewInstance() {
 		return new PhoenixIdentityWebService(getServerInstance());
 	}
 
