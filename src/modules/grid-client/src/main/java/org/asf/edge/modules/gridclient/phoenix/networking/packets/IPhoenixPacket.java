@@ -50,7 +50,6 @@ public interface IPhoenixPacket {
 	 * Builds the Phoenix packet
 	 * 
 	 * @param writer Data writer
-	 * @return Packet content
 	 */
 	public void build(DataWriter writer) throws IOException;;
 

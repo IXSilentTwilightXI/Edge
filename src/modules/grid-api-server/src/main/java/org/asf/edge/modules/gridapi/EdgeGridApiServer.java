@@ -6,6 +6,7 @@ import java.util.HashMap;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.asf.connective.ConnectiveHttpServer;
+import org.asf.connective.handlers.CaseInsensitiveHttpHandlerSet;
 import org.asf.edge.common.IBaseServer;
 import org.asf.edge.common.services.textfilter.TextFilterService;
 import org.asf.edge.common.util.LogWindow;
@@ -14,7 +15,6 @@ import org.asf.edge.modules.gridapi.commands.CommandContext;
 import org.asf.edge.modules.gridapi.config.GridApiServerConfig;
 import org.asf.edge.modules.gridapi.events.server.GridApiServerSetupEvent;
 import org.asf.edge.modules.gridapi.events.server.GridApiServerStartupEvent;
-import org.asf.edge.modules.gridapi.http.CaseInsensitiveContentSource;
 import org.asf.edge.modules.gridapi.http.services.*;
 import org.asf.edge.modules.gridapi.http.services.phoenix.PhoenixAuthWebService;
 import org.asf.edge.modules.gridapi.http.services.phoenix.PhoenixIdentityWebService;
@@ -110,7 +110,7 @@ public class EdgeGridApiServer implements IBaseServer {
 
 		// Register content source
 		logger.debug("Adding case-insensitive content source...");
-		server.setContentSource(new CaseInsensitiveContentSource());
+		server.setHandlerSet(new CaseInsensitiveHttpHandlerSet());
 
 		// Call event
 		logger.debug("Dispatching event...");

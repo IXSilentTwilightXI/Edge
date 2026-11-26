@@ -295,7 +295,7 @@ public abstract class GridClientComponent implements IEventReceiver {
 	/**
 	 * Called on disconnect
 	 * 
-	 * @param event Disconnect event object
+	 * @param reason Disconnect event object
 	 */
 	public void disconnect(GridClientDisconnectedEvent reason) {
 	}

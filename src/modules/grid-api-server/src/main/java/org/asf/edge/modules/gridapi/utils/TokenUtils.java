@@ -25,7 +25,6 @@ public class TokenUtils {
 	 * Retrieves a Phoenix API token from a API function object
 	 * 
 	 * @param func Function info object
-	 * @param cap  Required capability
 	 * @return AccessContext instance or null
 	 */
 	public static AccessContext fromFunction(FunctionInfo func) {

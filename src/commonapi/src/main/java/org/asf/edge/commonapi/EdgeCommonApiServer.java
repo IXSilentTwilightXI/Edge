@@ -7,8 +7,8 @@ import java.util.HashMap;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.asf.connective.ConnectiveHttpServer;
+import org.asf.connective.handlers.CaseInsensitiveHttpHandlerSet;
 import org.asf.connective.tasks.AsyncTaskManager;
-import org.asf.edge.commonapi.http.*;
 import org.asf.edge.commonapi.http.handlers.api.core.*;
 import org.asf.edge.commonapi.http.handlers.api.edgespecific.*;
 import org.asf.edge.commonapi.http.handlers.TestConnectionHandler;
@@ -170,8 +170,8 @@ public class EdgeCommonApiServer implements IBaseServer {
 
 		// Register content source
 		logger.debug("Adding case-insensitive content sources...");
-		server.setContentSource(new CaseInsensitiveContentSource());
-		internalServer.setContentSource(new CaseInsensitiveContentSource());
+		server.setHandlerSet(new CaseInsensitiveHttpHandlerSet());
+		internalServer.setHandlerSet(new CaseInsensitiveHttpHandlerSet());
 
 		// Call event
 		logger.debug("Dispatching event...");

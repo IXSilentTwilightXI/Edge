@@ -6,8 +6,8 @@ import java.util.HashMap;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.asf.connective.ConnectiveHttpServer;
+import org.asf.connective.handlers.CaseInsensitiveHttpHandlerSet;
 import org.asf.connective.tasks.AsyncTaskManager;
-import org.asf.edge.gameplayapi.http.*;
 import org.asf.edge.gameplayapi.http.handlers.gameplayapi.*;
 import org.asf.edge.gameplayapi.http.handlers.itemstore.*;
 import org.asf.edge.gameplayapi.services.quests.QuestManager;
@@ -149,7 +149,7 @@ public class EdgeGameplayApiServer implements IBaseServer {
 
 		// Register content source
 		logger.debug("Adding case-insensitive content source...");
-		server.setContentSource(new CaseInsensitiveContentSource());
+		server.setHandlerSet(new CaseInsensitiveHttpHandlerSet());
 
 		// Call event
 		logger.debug("Dispatching event...");
